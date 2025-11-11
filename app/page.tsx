@@ -5,7 +5,7 @@ import WalletConnectCard from "./components/WalletConnectCard";
 
 export default function Home(){
   return(
-<div className="m-6">
+<div className="m-6 w-screen">
   <Navbar/>
   <div className="my-5">
     <div className="flex justify-between">
