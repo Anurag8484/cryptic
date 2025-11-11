@@ -26,10 +26,15 @@ export default function(){
         }
 
     }
-    return(
-        <div className="outline-1 rounded-xl outline-neutral-200 p-4 flex flex-col gap-5">
-                <Input placeholder="Enter Sol needed" type="number" ref={solRef}></Input>
-                <Button onClick={()=>requestAirDrop()}>Request</Button>
-        </div>
-    )
+    return (
+      <div className="outline-1 rounded-xl outline-neutral-200 p-4 flex flex-col gap-5">
+        <span>AirDrop Section</span>
+        <Input
+          placeholder="Enter Sol needed"
+          type="number"
+          ref={solRef}
+        ></Input>
+        <Button onClick={() => requestAirDrop()}>Request</Button>
+      </div>
+    );
 }

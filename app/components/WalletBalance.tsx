@@ -26,7 +26,7 @@ export default function(){
     return (
       <div className=" outline-1 outline-neutral-200 justify-center items-center rounded-xl p-4 flex gap-5">
        <span className="text-neutral-800 font-semibold">
-       {(balance*10**-9)}
+       {(balance/10**9).toFixed(7)} SOL
        </span>
        <RefreshCcw className="size-5" onClick={()=>getBalanceSol()} />
       </div>
