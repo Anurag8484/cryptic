@@ -10,7 +10,6 @@ export default function(){
   const {publicKey,signMessage} = useWallet();
   const wallet = useWallet();
   const msgRef = useRef<HTMLInputElement>(null);
-
   async function signMsg(){
     const message = msgRef.current?.value;
     if(!publicKey){

@@ -65,6 +65,9 @@ importers:
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1
+      web3.js:
+        specifier: link:@types/@solana/web3.js
+        version: link:@types/@solana/web3.js
     devDependencies:
       '@tailwindcss/postcss':
         specifier: ^4

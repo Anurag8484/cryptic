@@ -16,7 +16,7 @@ export default function WalletContextProvider({
   return (
     <div className="flex gap-2 ">
       <ConnectionProvider endpoint={solanaDevnet}>
-        <WalletProvider wallets={[]}>
+        <WalletProvider wallets={[]} autoConnect={true}>
           <WalletModalProvider>{children}</WalletModalProvider>
         </WalletProvider>
       </ConnectionProvider>

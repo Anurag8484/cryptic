@@ -1,5 +1,6 @@
 import AirdropCard from "./components/AirdropCard";
 import Navbar from "./components/Navbar";
+import SendToken from "./components/SendToken";
 import SignCard from "./components/SignCard";
 import WalletBalance from "./components/WalletBalance";
 
@@ -12,10 +13,10 @@ export default function Home(){
       <span>Welcome to CryptiC</span>
         <WalletBalance/>
     </div>
-      <div className="flex justify-between  my-7">
+      <div className="flex justify-around  my-7">
       <AirdropCard/>
       <SignCard/>
-      <div></div>
+      <SendToken/>
       </div>
     </div> 
 
