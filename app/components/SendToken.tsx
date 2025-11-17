@@ -36,7 +36,7 @@ export default function () {
     try {
       await wallet
         .sendTransaction(transaction, connection)
-        .then((signature) => toast(signature));
+        .then((signature) => toast(signature)); 
       toast("✅Payment Done");
     } catch (error) {
       console.log(error);
