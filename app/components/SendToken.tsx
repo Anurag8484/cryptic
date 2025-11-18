@@ -31,7 +31,7 @@ export default function () {
         fromPubkey: wallet.publicKey,
         toPubkey: new PublicKey(to),
         lamports: amount,
-      })
+      }) 
     );
     try {
       await wallet
