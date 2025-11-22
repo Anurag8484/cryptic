@@ -40,7 +40,7 @@ export default function () {
       toast("✅Payment Done");
     } catch (error) {
       console.log(error);
-      toast("❌ Payment Failed");
+      toast("❌ Payment Failed");  
     }
   }
   return (
