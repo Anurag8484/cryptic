@@ -24,7 +24,7 @@ export default function(){
             console.log(error)
             return;
         }
-
+ 
     }
     return (
       <div className="outline-1 rounded-xl outline-neutral-200 p-4 flex flex-col gap-5">
