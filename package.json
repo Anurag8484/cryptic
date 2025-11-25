@@ -28,6 +28,7 @@
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "sonner": "^2.0.7",
+    "spl-token": "link:@types/@solana/spl-token",
     "tailwind-merge": "^3.3.1",
     "web3.js": "link:@types/@solana/web3.js"
   },
