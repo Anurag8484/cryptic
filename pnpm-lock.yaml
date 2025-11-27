@@ -17,6 +17,9 @@ importers:
       '@solana/spl-token':
         specifier: ^0.4.14
         version: 0.4.14(@solana/web3.js@1.98.4(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10))(bufferutil@4.0.9)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.9.3)(utf-8-validate@5.0.10)
+      '@solana/spl-token-metadata':
+        specifier: ^0.1.6
+        version: 0.1.6(@solana/web3.js@1.98.4(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10))(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.9.3)
       '@solana/wallet-adapter-base':
         specifier: ^0.9.27
         version: 0.9.27(@solana/web3.js@1.98.4(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10))
@@ -68,6 +71,9 @@ importers:
       spl-token:
         specifier: link:@types/@solana/spl-token
         version: link:@types/@solana/spl-token
+      spl-token-metadata:
+        specifier: link:@types/@solana/spl-token-metadata
+        version: link:@types/@solana/spl-token-metadata
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1

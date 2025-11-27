@@ -1,7 +1,8 @@
 'use client'
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { createInitializeMint2Instruction, getMinimumBalanceForRentExemptMint, MINT_SIZE, TOKEN_PROGRAM_ID } from "@solana/spl-token";
+import { createInitializeMetadataPointerInstruction, createInitializeMint2Instruction, createInitializeMintInstruction, ExtensionType, getMinimumBalanceForRentExemptMint, getMintLen, LENGTH_SIZE, MINT_SIZE, TOKEN_2022_PROGRAM_ID, TYPE_SIZE } from "@solana/spl-token";
+import { createInitializeInstruction, pack } from "@solana/spl-token-metadata";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { Keypair, SystemProgram, Transaction } from "@solana/web3.js";
 import { useRef } from "react";
@@ -17,29 +18,54 @@ export default function(){
             return;
         };
         const mintKeypair = Keypair.generate();
-        const lamports = await getMinimumBalanceForRentExemptMint(connection);
-
+        
+        const metedata = {
+          mint: mintKeypair.publicKey,
+          name: nameRef.current?.value || "APBC",
+          symbol: symbolRef.current?.value || "⥇",
+          uri:
+          uriRef.current?.value || "https://cdn.100xdevs.com/metadata.json",
+          additionalMetadata: [],
+        };
+        
+        const mintLen = getMintLen([ExtensionType.MetadataPointer]);
+        const meteDataLen = TYPE_SIZE + LENGTH_SIZE + pack(metedata).length
+        const lamports = await connection.getMinimumBalanceForRentExemption(mintLen + meteDataLen);
         const transaction = new Transaction().add(
-            SystemProgram.createAccount({
-                fromPubkey: wallet.publicKey,
-                newAccountPubkey:mintKeypair.publicKey,
-                space:MINT_SIZE,
-                lamports,
-                programId: TOKEN_PROGRAM_ID,
-            }),
-            createInitializeMint2Instruction(mintKeypair.publicKey,9,wallet.publicKey,wallet.publicKey,TOKEN_PROGRAM_ID)
+          SystemProgram.createAccount({
+            fromPubkey: wallet.publicKey,
+            newAccountPubkey: mintKeypair.publicKey,
+            space: mintLen,
+            lamports,
+            programId: TOKEN_2022_PROGRAM_ID,
+          }),
+          createInitializeMetadataPointerInstruction(mintKeypair.publicKey,wallet.publicKey,mintKeypair.publicKey,TOKEN_2022_PROGRAM_ID),
+          createInitializeMintInstruction(mintKeypair.publicKey,9,wallet.publicKey,null,TOKEN_2022_PROGRAM_ID),
+          createInitializeInstruction({
+            programId:TOKEN_2022_PROGRAM_ID,
+            mint: mintKeypair.publicKey,
+            metadata: mintKeypair.publicKey,
+            name: metedata.name,
+            symbol: metedata.symbol,
+            uri: metedata.uri,
+            mintAuthority: wallet.publicKey,
+            updateAuthority:wallet.publicKey,
+            
+          }
+          )
         );
 
         transaction.feePayer = wallet.publicKey;
         transaction.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
         transaction.partialSign(mintKeypair);
 
-        await wallet.sendTransaction(transaction,connection);
+        const res = await wallet.sendTransaction(transaction,connection);
+        console.log(res)
         toast(`Token Mint created at ${mintKeypair.publicKey.toBase58()}`)
     }
     const nameRef = useRef<HTMLInputElement>(null);
     const symbolRef = useRef<HTMLInputElement>(null);
-    const imageRef = useRef<HTMLInputElement>(null);
+    const uriRef = useRef<HTMLInputElement>(null);
     const supplyRef = useRef<HTMLInputElement>(null);
 
     return (
@@ -58,7 +84,7 @@ export default function(){
         <Input
           placeholder="Image Url"
           type="text"
-          ref={imageRef}
+          ref={uriRef}
         ></Input>
         <Input
           placeholder="Initial Supply"
